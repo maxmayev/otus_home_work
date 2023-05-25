@@ -1,18 +1,19 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Box<T extends Fruit> implements Comparable<Box<T>> {
-    private final ArrayList<T> fruit;
+    private final List<T> fruits;
 
-    public Box(ArrayList<T> fruit) {
-        this.fruit = fruit;
+    public Box(ArrayList<T> fruits) {
+        this.fruits = fruits;
     }
 
     public double getWeight() {
-        return fruit.isEmpty() ? 0 : fruit.stream().mapToDouble(Fruit::getWeight).sum();
+        return fruits.isEmpty() ? 0 : fruits.stream().mapToDouble(Fruit::getWeight).sum();
     }
 
     public double addFruit(T frt) {
-        fruit.add(frt);
+        fruits.add(frt);
         return getWeight();
     }
 
@@ -27,12 +28,14 @@ public class Box<T extends Fruit> implements Comparable<Box<T>> {
     }
 
     public boolean pourOver(Box<Fruit> box) {
-        boolean result = box.getFruit().addAll(fruit);
-        if (result) fruit.clear();
+        if (box.fruits.equals(this.fruits)) return false;
+
+        boolean result = box.getFruits().addAll(fruits);
+        if (result) fruits.clear();
         return result;
     }
 
-    public ArrayList<T> getFruit() {
-        return fruit;
+    public List<T> getFruits() {
+        return fruits;
     }
 }
