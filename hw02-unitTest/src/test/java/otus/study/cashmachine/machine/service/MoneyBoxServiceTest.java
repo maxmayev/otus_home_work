@@ -15,14 +15,14 @@ public class MoneyBoxServiceTest {
     private MoneyBoxService moneyBoxService;
 
     @BeforeEach
-    void init() {
+    private void init() {
         moneyBoxService = new MoneyBoxServiceImpl();
         MoneyBox box = new MoneyBox(100, 100, 100, 100);
         moneyBoxService.changeMoneyBox(box);
     }
 
     @Test
-    void charge7800() {
+    private void charge7800() {
         int previousSum = moneyBoxService.checkSum();
         List<Integer> result = moneyBoxService.getMoney(7800);
         assertEquals(7800, result.get(0) * 5000 + result.get(1) * 1000 + result.get(2) * 500 + result.get(3) * 100);
@@ -30,7 +30,7 @@ public class MoneyBoxServiceTest {
     }
 
     @Test
-    void charge1001() {
+    private void charge1001() {
         Exception thrown = assertThrows(IllegalStateException.class, () -> {
             moneyBoxService.getMoney(1001);
         });
@@ -40,7 +40,7 @@ public class MoneyBoxServiceTest {
     }
 
     @Test
-    void chargeMoreThanHave() {
+    private void chargeMoreThanHave() {
         int illegalSumToCharge = moneyBoxService.checkSum() + 100;
         Exception thrown = assertThrows(IllegalStateException.class, () -> {
             moneyBoxService.getMoney(illegalSumToCharge);
@@ -49,7 +49,7 @@ public class MoneyBoxServiceTest {
     }
 
     @Test
-    void addNotes() {
+    private void addNotes() {
         int initialSum = moneyBoxService.checkSum();
         moneyBoxService.putMoney(1, 1, 1, 1);
         assertEquals(initialSum + 5000 + 1000 + 500 + 100, moneyBoxService.checkSum());

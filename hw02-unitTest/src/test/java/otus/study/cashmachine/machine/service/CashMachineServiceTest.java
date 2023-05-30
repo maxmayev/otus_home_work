@@ -49,13 +49,13 @@ class CashMachineServiceTest {
     private CashMachine cashMachine = new CashMachine(new MoneyBox());
 
     @BeforeEach
-    void init() {
+    private void init() {
         cashMachineService = new CashMachineServiceImpl(cardService, accountService, moneyBoxService);
     }
 
 
     @Test
-    void getMoney() {
+    private void getMoney() {
         doReturn(BigDecimal.ONE)
                 .when(cardService)
                 .getMoney(eq("0000"), any(), same(BigDecimal.valueOf(10)));
@@ -73,7 +73,7 @@ class CashMachineServiceTest {
     }
 
     @Test
-    void putMoney() {
+    private void putMoney() {
         when(cardsDao.getCardByNumber("1111")).thenReturn(new Card(1L, "1111", 1L, "1111"));
         when(accountService.putMoney(1L, BigDecimal.ONE)).thenReturn(BigDecimal.ZERO);
 
@@ -82,14 +82,13 @@ class CashMachineServiceTest {
     }
 
     @Test
-    void checkBalance() {
+    private void checkBalance() {
 
     }
 
     @Test
-    void changePin() {
-// @TODO create change pin test using spy as implementation and ArgumentCaptor and thenReturn
-        // given
+    private void changePin() {
+
 
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 
@@ -107,9 +106,7 @@ class CashMachineServiceTest {
     }
 
     @Test
-    void changePinWithAnswer() {
-// @TODO create change pin test using spy as implementation and mock an thenAnswer
-
+    private void changePinWithAnswer() {
 
         List<String> numbers = new ArrayList<>();
 

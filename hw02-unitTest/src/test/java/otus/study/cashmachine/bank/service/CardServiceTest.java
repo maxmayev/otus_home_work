@@ -19,20 +19,20 @@ import static org.mockito.Mockito.*;
 public class CardServiceTest {
 
     @Mock
-    AccountService accountService;
+    private AccountService accountService;
 
     @Mock
-    CardsDao cardsDao;
+    private CardsDao cardsDao;
 
-    CardService cardService;
+    private CardService cardService;
 
     @BeforeEach
-    void init() {
+    private void init() {
         cardService = new CardServiceImpl(accountService, cardsDao);
     }
 
     @Test
-    void testCreateCard() {
+    private void testCreateCard() {
         when(cardsDao.createCard("5555", 1L, "0123")).thenReturn(
                 new Card(1L, "5555", 1L, "0123"));
 
@@ -46,7 +46,7 @@ public class CardServiceTest {
     }
 
     @Test
-    void checkBalance() {
+    private void checkBalance() {
         Card card = new Card(1L, "1234", 1L, "0000");
         when(cardsDao.getCardByNumber(anyString())).thenReturn(card);
         when(accountService.checkBalance(1L)).thenReturn(new BigDecimal(1000));
@@ -56,7 +56,7 @@ public class CardServiceTest {
     }
 
     @Test
-    void getMoney() {
+    private void getMoney() {
         ArgumentCaptor<BigDecimal> amountCaptor = ArgumentCaptor.forClass(BigDecimal.class);
         ArgumentCaptor<Long> idCaptor = ArgumentCaptor.forClass(Long.class);
 
@@ -74,7 +74,7 @@ public class CardServiceTest {
     }
 
     @Test
-    void putMoney() {
+    private void putMoney() {
         assertThrows(IllegalArgumentException.class, () -> {
             cardService.putMoney("1", "0000", BigDecimal.ONE);
         });
@@ -91,7 +91,7 @@ public class CardServiceTest {
     }
 
     @Test
-    void checkIncorrectPin() {
+    private void checkIncorrectPin() {
         Card card = new Card(1L, "1234", 1L, "0000");
         when(cardsDao.getCardByNumber(eq("1234"))).thenReturn(card);
 
@@ -102,7 +102,7 @@ public class CardServiceTest {
     }
 
     @Test
-    void changePin() {
+    private void changePin() {
         assertThrows(IllegalArgumentException.class, () -> {
             cardService.changePin("1", "0000", "1111");
         });

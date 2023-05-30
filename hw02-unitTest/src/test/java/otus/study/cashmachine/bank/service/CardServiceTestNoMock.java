@@ -13,17 +13,17 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CardServiceTestNoMock {
-    static AccountService accountService;
+    private static AccountService accountService;
 
-    static CardsDao cardsDao;
+    private static CardsDao cardsDao;
 
-    static CardService cardService;
-    static Account testAccount;
+    private static CardService cardService;
+    private static Account testAccount;
 
-    static Card testCard;
+    private static Card testCard;
 
     @BeforeAll
-    static void init() {
+    private static void init() {
         accountService = new AccountServiceImpl();
         cardsDao = new CardsDao();
 
@@ -34,7 +34,7 @@ public class CardServiceTestNoMock {
     }
 
     @Test
-    void testCreateCard() {
+    private void testCreateCard() {
         Card newCard = cardService.createCard("5555", testAccount.getId(), "0123");
         assertNotEquals(0, newCard.getId());
         assertEquals("5555", newCard.getNumber());
@@ -43,13 +43,13 @@ public class CardServiceTestNoMock {
     }
 
     @Test
-    void checkBalance() {
+    private void checkBalance() {
         BigDecimal sum = cardService.getBalance("1234", "0000");
         assertEquals(0, sum.compareTo(new BigDecimal(1000)));
     }
 
     @Test
-    void getMoney() {
+    private void getMoney() {
         BigDecimal initialSum = cardService.getBalance("1234", "0000");
         BigDecimal newAmount = cardService.getMoney("1234", "0000", new BigDecimal(100));
         BigDecimal finalAmount = cardService.getBalance("1234", "0000");
@@ -59,7 +59,7 @@ public class CardServiceTestNoMock {
     }
 
     @Test
-    void putMoney() {
+    private void putMoney() {
         BigDecimal initialSum = cardService.getBalance("1234", "0000");
         BigDecimal newAmount = cardService.putMoney("1234", "0000", new BigDecimal(100));
         BigDecimal finalAmount = cardService.getBalance("1234", "0000");
@@ -69,7 +69,7 @@ public class CardServiceTestNoMock {
     }
 
     @Test
-    void checkIncorrectPin() {
+    private void checkIncorrectPin() {
      Exception thrown = assertThrows(IllegalArgumentException.class, () -> {
          cardService.getBalance("1234", "0022");
      });

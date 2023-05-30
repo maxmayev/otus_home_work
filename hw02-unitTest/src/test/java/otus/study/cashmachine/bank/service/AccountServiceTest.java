@@ -11,33 +11,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class AccountServiceTest {
-    AccountService accountService;
-    Account testAccount;
+    private AccountService accountService;
+    private Account testAccount;
 
     @BeforeEach
-    void init() {
+    private void init() {
         accountService = new AccountServiceImpl();
         testAccount = accountService.createAccount(new BigDecimal(1000));
     }
 
     @Test
-    void createAccount() {
+    private void createAccount() {
         Account newAccount = accountService.createAccount(new BigDecimal(1000));
         assertEquals(0, new BigDecimal(1000).compareTo(newAccount.getAmount()));
     }
 
     @Test
-    void createAccountMock() {
-// @TODO test account creation with mock and ArgumentMatcher
-    }
-
-    @Test
-    void createAccountCaptor() {
-//  @TODO test account creation with ArgumentCaptor
-    }
-
-    @Test
-    void addSum() {
+    private void addSum() {
         BigDecimal sum = testAccount.getAmount();
         BigDecimal newSum = accountService.putMoney(testAccount.getId(), new BigDecimal(100));
 
@@ -46,7 +36,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    void getSum() {
+    private void getSum() {
         BigDecimal sum = testAccount.getAmount();
         BigDecimal newSum = accountService.getMoney(testAccount.getId(), new BigDecimal(100));
 
@@ -55,12 +45,12 @@ public class AccountServiceTest {
     }
 
     @Test
-    void getAccount() {
+    private void getAccount() {
         assertEquals(testAccount, accountService.getAccount(testAccount.getId()));
     }
 
     @Test
-    void checkBalance() {
+    private void checkBalance() {
         assertEquals(0, testAccount.getAmount()
                 .compareTo(accountService.checkBalance(testAccount.getId())));
     }
