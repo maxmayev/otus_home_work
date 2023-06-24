@@ -4,10 +4,7 @@ import lombok.NoArgsConstructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoggingProxy {
@@ -26,19 +23,33 @@ public class LoggingProxy {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            Method methodFromImpl = testLogging.getClass().getMethod(method.getName(), Arrays.stream(args).map(Object::getClass).collect(Collectors.toList()).toArray(new Class[args.length]));
+            Method methodFromImpl = testLogging.getClass().
+                    getMethod(method.getName(), Arrays.stream(args).
+                            map(Object::getClass).
+                            toList().
+                            toArray(new Class[args.length]));
 
-            if (Arrays.stream(methodFromImpl.getAnnotations()).anyMatch(annotation -> annotation.annotationType().getName().equals("Log"))) {
-                System.out.print("Executed method: " + method.getName() + ", param: ");
+
+            boolean isContainsLog = Arrays.stream(methodFromImpl.getAnnotations()).
+                    anyMatch(annotation -> annotation.annotationType().getName().equals("Log"));
+            StringBuffer consoleOut = new StringBuffer();
+
+            if (isContainsLog) {
+                consoleOut.append("Executed method: ").
+                        append(method.getName()).
+                        append(", param: ");
                 if (args.length > 0) {
                     for (int i = 0; i < args.length - 1; i++) {
-                        System.out.print(args[i] + ", ");
+                        consoleOut.append(args[i]).append(", ");
                     }
-                    System.out.print(args[args.length - 1] + "\n");
+                    consoleOut.append(args[args.length - 1]).append("\n");
                 } else {
-                    System.out.print("none");
+                    consoleOut.append("none");
                 }
             }
+
+            System.out.println(consoleOut);
+
             return method.invoke(testLogging, args);
         }
     }
