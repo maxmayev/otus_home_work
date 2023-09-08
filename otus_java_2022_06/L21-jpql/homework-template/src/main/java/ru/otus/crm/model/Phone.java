@@ -21,8 +21,9 @@ public class Phone implements Cloneable {
     @Column(name = "number")
     private String number;
 
-    @Column(name = "client_id")
-    private Long clientId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Client client;
+
 
     public Phone(String number) {
         this.id = null;
@@ -34,15 +35,15 @@ public class Phone implements Cloneable {
         this.number = number;
     }
 
-    public Phone(Long id, String number, Long clientId) {
+    public Phone(Long id, String number, Client client) {
         this.id = id;
         this.number = number;
-        this.clientId = clientId;
+        this.client = client;
     }
 
     @Override
     public Phone clone() {
-        return new Phone(this.id, this.number, this.clientId);
+        return new Phone(this.id, this.number, this.client);
     }
 
     @Override
@@ -50,7 +51,6 @@ public class Phone implements Cloneable {
         return "Phone{" +
                 "id=" + id +
                 ", number='" + number + '\'' +
-                ", clientId='" + clientId + '\'' +
                 '}';
     }
 }

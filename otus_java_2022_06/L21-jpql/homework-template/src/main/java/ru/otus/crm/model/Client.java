@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,9 +28,9 @@ public class Client implements Cloneable {
     @JoinColumn(name = "address_id", updatable = false)
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", updatable = false)
-    private List<Phone> phone;
+    private List<Phone> phones;
 
     public Client(String name) {
         this.id = null;
@@ -43,20 +42,21 @@ public class Client implements Cloneable {
         this.name = name;
     }
 
-    public Client(Long id, String name, Address address, List<Phone> phone) {
+    public Client(Long id, String name, Address address, List<Phone> phones) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.phone = phone;
+        this.phones = phones;
     }
 
     @Override
     public Client clone() {
-        List<Phone> phones = new ArrayList<>();
-        if (phone != null){
-            phones = phone.stream().map(Phone::clone).collect(Collectors.toList());
+        List<Phone> clonedPhones = null;
+        if (phones != null) {
+            clonedPhones = List.copyOf(phones);
+            clonedPhones.stream().forEach(phone -> phone.setClient(this));
         }
-        return new Client(null, this.name, this.address != null ? this.address.clone() : null, phones);
+        return new Client(this.id, this.name, this.address != null ? this.address.clone() : null, clonedPhones);
     }
 
     @Override
@@ -64,7 +64,6 @@ public class Client implements Cloneable {
         return "Client{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }
