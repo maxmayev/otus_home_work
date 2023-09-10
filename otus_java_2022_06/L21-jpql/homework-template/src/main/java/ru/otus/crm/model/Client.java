@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -25,28 +24,23 @@ public class Client implements Cloneable {
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", updatable = false)
+    @JoinColumn(name = "address_id", updatable = false, nullable = true)
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_id", updatable = false)
+    @JoinColumn(name = "client_id", updatable = false, nullable = false)
     private List<Phone> phones;
-
-    public Client(String name) {
-        this.id = null;
-        this.name = name;
-    }
 
     public Client(Long id, String name) {
         this.id = id;
         this.name = name;
+        phones = null;
     }
 
     public Client(Long id, String name, Address address, List<Phone> phones) {
         this.id = id;
         this.name = name;
         this.address = address;
-        phones.forEach(phone -> phone.setClient(this));
         this.phones = phones;
     }
 
@@ -55,7 +49,6 @@ public class Client implements Cloneable {
         List<Phone> clonedPhones = null;
         if (phones != null) {
             clonedPhones = List.copyOf(phones);
-            clonedPhones.stream().forEach(phone -> phone.setClient(this));
         }
         return new Client(this.id, this.name, this.address != null ? this.address.clone() : null, clonedPhones);
     }
