@@ -1,5 +1,6 @@
 package solid.study.bank.repo;
 
+import org.springframework.stereotype.Repository;
 import solid.study.bank.model.Account;
 import lombok.Data;
 
@@ -7,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Repository
 @Data
 public class AccountRepository {
     List<Account> accounts;

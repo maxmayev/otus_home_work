@@ -1,6 +1,7 @@
 package solid.study.card.repo;
 
 
+import org.springframework.stereotype.Repository;
 import solid.study.card.model.Card;
 import lombok.Data;
 
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+
+@Repository
 public class CardRepository {
     List<Card> cards;
 
@@ -29,5 +32,9 @@ public class CardRepository {
                 .pin("3333")
                 .userId(BigDecimal.valueOf(cards.size()))
                 .build());
+    }
+
+    public boolean deleteCard(Card card){
+        return cards.remove(card);
     }
 }

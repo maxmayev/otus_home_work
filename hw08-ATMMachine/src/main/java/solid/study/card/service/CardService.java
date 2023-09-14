@@ -10,4 +10,8 @@ public interface CardService {
 
     boolean checkPin(String cardNum, String pin);
 
+    boolean changePin(String cardNum, String oldPin, String newPin);
+
+    boolean closeCard(String cardNum, String pin);
+
 }

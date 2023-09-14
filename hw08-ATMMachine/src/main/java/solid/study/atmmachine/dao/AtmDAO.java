@@ -1,11 +1,13 @@
 package solid.study.atmmachine.dao;
 
+import org.springframework.stereotype.Component;
 import solid.study.atmmachine.model.AtmMoneyBox;
 import solid.study.atmmachine.repo.AtmRepository;
 
 import java.math.BigDecimal;
 import java.util.Map;
 
+@Component
 public class AtmDAO {
     AtmRepository atmRepository;
 

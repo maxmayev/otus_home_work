@@ -1,0 +1,17 @@
+get http://localhost:8080/money?atmId=0&cardNum=11111&pin=1111&sum=6600 (забрать сумму с баланса)
+get http://localhost:8080/money/balance?cardNum=11111&pin=1111 (проверить баланс)
+
+put http://localhost:8080/money                (положить купюры на баланс)
+{                               "atmId": 0,
+                               "cardNum": 11111,
+                               "pin": 1111,
+                               "notes": {
+                                   "100":1,
+                                   "1000":2,
+                                   "5000":3
+                               }
+                           }
+
+http://localhost:8080/card?cardNum=11111&pin=1111 (удалить карту)
+
+http://localhost:8080/card?cardNum=11111&oldPin=1111&newPin=2222 (сменить пин карты)

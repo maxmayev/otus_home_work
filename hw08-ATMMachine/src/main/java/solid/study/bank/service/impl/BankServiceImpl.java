@@ -1,10 +1,12 @@
 package solid.study.bank.service.impl;
 
+import org.springframework.stereotype.Service;
 import solid.study.bank.dao.AccountDAO;
 import solid.study.bank.service.BankService;
 
 import java.math.BigDecimal;
 
+@Service
 public class BankServiceImpl implements BankService {
 
     AccountDAO accountDAO;

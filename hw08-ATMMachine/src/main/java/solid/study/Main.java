@@ -1,25 +1,15 @@
 package solid.study;
 
-import solid.study.atmmachine.dao.AtmDAO;
-import solid.study.atmmachine.repo.AtmRepository;
-import solid.study.atmmachine.service.AtmService;
-import solid.study.atmmachine.service.impl.AtmServiceImpl;
-import solid.study.bank.dao.AccountDAO;
-import solid.study.bank.repo.AccountRepository;
-import solid.study.bank.service.BankService;
-import solid.study.bank.service.impl.BankServiceImpl;
-import solid.study.card.dao.CardDao;
-import solid.study.card.repo.CardRepository;
-import solid.study.card.service.CardService;
-import solid.study.card.service.impl.CardServiceImpl;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-
+@ComponentScan
+@EnableAutoConfiguration
 public class Main {
     public static void main(String[] args) {
-        BankService bankService = new BankServiceImpl(new AccountDAO(new AccountRepository()));
+            SpringApplication.run(Main.class, args);
+        /*BankService bankService = new BankServiceImpl(new AccountDAO(new AccountRepository()));
         CardService cardService = new CardServiceImpl(new CardDao(new CardRepository()), bankService);
         AtmService atmService = new AtmServiceImpl(cardService, new AtmDAO(new AtmRepository()));
 
@@ -53,9 +43,8 @@ public class Main {
             atmService.getMoney(BigDecimal.ZERO, "11111", "1111", 100000); // not enough money
         } catch (IllegalStateException exception) {
             System.out.println(exception.getMessage());
+        }*/
+
+
         }
-
-
     }
-
-}
