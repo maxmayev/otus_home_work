@@ -1,11 +1,13 @@
 package solid.study.bank.dao;
 
+import org.springframework.stereotype.Component;
 import solid.study.bank.model.Account;
 import solid.study.bank.repo.AccountRepository;
 
 import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
+@Component
 public class AccountDAO {
 
     AccountRepository accountRepository;

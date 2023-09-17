@@ -14,5 +14,9 @@ import java.math.BigDecimal;
 public class Card {
     private final String number;
     private final BigDecimal userId;
-    private final String pin;
+    private  String pin;
+
+    public void setNewPin(String pin) {
+        this.pin = pin;
+    }
 }

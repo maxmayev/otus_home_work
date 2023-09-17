@@ -1,5 +1,6 @@
 package solid.study.atmmachine.service.impl;
 
+import org.springframework.stereotype.Service;
 import solid.study.atmmachine.dao.AtmDAO;
 import solid.study.atmmachine.service.AtmService;
 import solid.study.atmmachine.utils.MoneyCalculator;
@@ -8,7 +9,9 @@ import solid.study.card.service.CardService;
 import java.math.BigDecimal;
 import java.util.Map;
 
+@Service
 public class AtmServiceImpl implements AtmService {
+
 
     CardService cardService;
     AtmDAO atmDAO;

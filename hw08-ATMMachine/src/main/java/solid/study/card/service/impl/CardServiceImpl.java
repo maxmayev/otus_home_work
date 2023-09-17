@@ -1,11 +1,13 @@
 package solid.study.card.service.impl;
 
+import org.springframework.stereotype.Service;
 import solid.study.bank.service.BankService;
 import solid.study.card.dao.CardDao;
 import solid.study.card.service.CardService;
 
 import java.math.BigDecimal;
 
+@Service
 public class CardServiceImpl implements CardService {
 
     private final CardDao cardDao;
@@ -36,6 +38,26 @@ public class CardServiceImpl implements CardService {
     @Override
     public boolean checkPin(String cardNum, String pin) {
         return cardDao.getPinByCardNum(cardNum).equals(pin);
+    }
+
+    @Override
+    public boolean changePin(String cardNum, String oldPin, String newPin) {
+        try {
+            cardDao.changePin(cardNum, oldPin, newPin);
+        } catch (Exception exception) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean closeCard(String cardNum, String pin) {
+        try {
+            cardDao.closeCard(cardNum, pin);
+        } catch (Exception exception) {
+            return false;
+        }
+        return true;
     }
 
     private BigDecimal checkPinAndGetAccountId(String cardNum, String pin) {

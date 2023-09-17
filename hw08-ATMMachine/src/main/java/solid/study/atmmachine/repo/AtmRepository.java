@@ -1,16 +1,18 @@
 package solid.study.atmmachine.repo;
 
+import org.springframework.stereotype.Repository;
 import solid.study.atmmachine.model.AtmMoneyBox;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+@Repository
 public class AtmRepository {
     private List<AtmMoneyBox> atmMoneyBoxList;
 
     public AtmRepository() {
-        atmMoneyBoxList = new ArrayList<>();
+        atmMoneyBoxList = new LinkedList<>();
 
         atmMoneyBoxList.add(AtmMoneyBox.builder().
                 atmId(BigDecimal.valueOf(atmMoneyBoxList.size()))

@@ -3,6 +3,7 @@ package solid.study.atmmachine.model;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
