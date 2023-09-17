@@ -16,10 +16,13 @@ import java.util.NoSuchElementException;
 @RestController
 public class AtmController {
 
-    @Autowired
-    AtmService atmService;
-    @Autowired
-    CardService cardService;
+    private final AtmService atmService;
+    private final CardService cardService;
+
+    public AtmController(AtmService atmService, CardService cardService) {
+        this.atmService = atmService;
+        this.cardService = cardService;
+    }
 
     @PostMapping(value = "money", consumes = {"application/json"})
     public ResponseEntity<Map<Integer, Integer>> putMoney(@RequestBody PutMoneyDTO money) {
@@ -46,7 +49,7 @@ public class AtmController {
         return ResponseEntity.ok(money.entrySet().stream().mapToInt(element -> element.getKey() * element.getValue()).sum());
     }
 
-    @GetMapping(value = "money/balance", produces = "text/plain;charset=UTF-8")
+    @PostMapping(value = "money/balance", produces = "text/plain;charset=UTF-8")
     public ResponseEntity getBalance(String cardNum, String pin) {
         int sum = 0;
         try {
