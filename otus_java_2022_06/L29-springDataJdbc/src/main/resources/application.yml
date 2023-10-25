@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5430/demoDB
-    username: usr
-    password: pwd
+    url: jdbc:postgresql://localhost:5432/testDb
+    username: pg
+    password: pg
   flyway:
     enabled: true
 

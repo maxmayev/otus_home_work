@@ -9,12 +9,27 @@ dependencies {
     dependencies {
         implementation 'ch.qos.logback:logback-classic'
         implementation 'org.flywaydb:flyway-core'
-        implementation 'org.postgresql:postgresql'
         implementation 'com.google.code.findbugs:jsr305'
+        implementation("org.postgresql:postgresql")
+        implementation("org.hibernate:hibernate-core")
 
+        testImplementation("org.junit.jupiter:junit-jupiter-engine")
+        testImplementation("org.assertj:assertj-core")
+
+        testImplementation("org.testcontainers:junit-jupiter")
+        testImplementation("org.testcontainers:postgresql")
+
+        implementation 'org.springframework.boot:spring-boot'
         implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    }
-}
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-test {
+    }
+
+    tasks.withType(Test) {
+        useJUnitPlatform()
+
+        testLogging {     // This is for logging and can be removed.
+            events("passed", "skipped", "failed")
+        }
+    }
 }

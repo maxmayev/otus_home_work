@@ -25,6 +25,8 @@ public class ActionDemo {
     private final DBServiceClient dbServiceClient;
     private final DBServiceManager dbServiceManager;
 
+    public static final String HIBERNATE_CFG_FILE = "hibernate.cfg.xml";
+
     public ActionDemo(ClientRepository clientRepository, ManagerRepository managerRepository,
                       DBServiceClient dbServiceClient, DBServiceManager dbServiceManager) {
         this.managerRepository = managerRepository;
