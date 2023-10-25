@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>АвтоГраф</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.css}" />
+    <link rel="stylesheet" th:href="@{css/styles.css}" />
+
+</head>
+<body>
+<h1 class="header">Войдите или зарегистрируйтесь</h1>
+<h1 class="header"></h1>
+<div class="login">
+    <form method="post" th:action="@{/login}">
+        <div class="form-group">
+            <label for="username">Государственный регистрационный номер вашего автомобиля</label>
+            <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp"
+                   placeholder="Введите номер авто">
+            <!--<small id="usernameHelp" class="form-text text-muted">Enter registration number</small>-->
+        </div>
+        <div class="form-group">
+            <label for="password">Номер вашего телефона</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Введите телефон">
+        </div>
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
+    <div th:if="${error}">
+        Проверьте регистрационные данные
+    </div>
+    <p>Впервые здесь? Нажмите
+        <a th:href="@{/register}">здесь</a> чтобы зарегистрироваться</p>
+</div>
+
+</body>
+</html>
