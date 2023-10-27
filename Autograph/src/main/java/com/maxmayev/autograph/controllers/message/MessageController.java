@@ -36,7 +36,7 @@ public class MessageController {
     }
 
     @GetMapping
-    public String showOrderForm(Model model, Authentication authentication){
+    public String showMainForm(Model model, Authentication authentication){
         messageService.showLkForm(model, authentication);
         return "lk";
     }

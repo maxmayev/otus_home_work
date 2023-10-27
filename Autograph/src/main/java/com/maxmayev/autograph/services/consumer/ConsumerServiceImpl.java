@@ -1,4 +1,4 @@
-package com.maxmayev.autograph.services.rest;
+package com.maxmayev.autograph.services.consumer;
 
 import com.maxmayev.autograph.domain.Message;
 import com.maxmayev.autograph.repository.MessageRepository;
@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class RestServiceImpl implements RestService {
+public class ConsumerServiceImpl implements ConsumerService {
 
     MessageRepository messageRepository;
 
     @Autowired
-    public RestServiceImpl(MessageRepository messageRepository) {
+    public ConsumerServiceImpl(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
     }
 

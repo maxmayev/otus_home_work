@@ -92,33 +92,6 @@
                         </p>
                     </td>
                 </tr>
-
-                <!-- <span th:if = "${message.name}" >
-                 <td>
-
-         <p>
-             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="true" aria-controls="collapseExample" >
-                 Заказ клиента <span th:text="${message.name}"></span>
-             </button>
-         </p>
-
-                 </td>
-                 <td>
-                     <form method="post" th:action="@{message/saveconsumer}">
-                         <p>
-                             <button class="btn btn-primary" type="submit">
-                                 Сохранить клиента <span th:text="${message.name}"></span>
-                             </button>
-                         </p>
-                     </form>
-                 </td>
-                       </span>
-                 <td>
-                     <form method="POST" th:action="@{/logout}">
-                         <button class="btn btn-dark" type="submit">Logout</button>
-                     </form>
-                 </td> -->
-
             </table>
         </div>
     </div>
@@ -171,8 +144,6 @@
                         <td><p th:text="${message.autoNumber}">error</p></td>
                         <td><p th:text="${message.name}">error</p></td>
                         <td><p th:text="${message.messText}">error</p></td>
-                        <!--<td><th:block th:each="order: ${message.orders}"><a href="https://www.google.ru/"><span th:text="${order.getId()}">error</span></a><span th:unless="${ message.orders.size()-1 == message.orders.indexOf(order)}" > | </span></th:block></td>
-                        <td><th:block th:each="order: ${message.getOrders()}"><span th:text="${order.getTechnic()}">error</span><span th:unless="${ message.orders.size()-1 == message.orders.indexOf(order)}" > | </span></th:block></td>-->
                         <td>
                             <div class="container">
                                 <div class="row justify-content-md-center">
@@ -201,8 +172,6 @@
                         <td><p th:text="${message.autoNumber}">error</p></td>
                         <td><p th:text="${message.name}">error</p></td>
                         <td><p th:text="${message.messText}">error</p></td>
-                        <!--<td><th:block th:each="order: ${message.orders}"><a href="https://www.google.ru/"><span th:text="${order.getId()}">error</span></a><span th:unless="${ message.orders.size()-1 == message.orders.indexOf(order)}" > | </span></th:block></td>
-                        <td><th:block th:each="order: ${message.getOrders()}"><span th:text="${order.getTechnic()}">error</span><span th:unless="${ message.orders.size()-1 == message.orders.indexOf(order)}" > | </span></th:block></td>-->
                         <td>
                             <div class="container">
                                 <div class="row justify-content-md-center">
@@ -231,8 +200,6 @@
                         <td><p th:text="${message.autoNumber}">error</p></td>
                         <td><p th:text="${message.name}">error</p></td>
                         <td><p th:text="${message.messText}">error</p></td>
-                        <!--<td><th:block th:each="order: ${message.orders}"><a href="https://www.google.ru/"><span th:text="${order.getId()}">error</span></a><span th:unless="${ message.orders.size()-1 == message.orders.indexOf(order)}" > | </span></th:block></td>
-                        <td><th:block th:each="order: ${message.getOrders()}"><span th:text="${order.getTechnic()}">error</span><span th:unless="${ message.orders.size()-1 == message.orders.indexOf(order)}" > | </span></th:block></td>-->
                         <td>
                             <div class="container">
                                 <div class="row justify-content-md-center">

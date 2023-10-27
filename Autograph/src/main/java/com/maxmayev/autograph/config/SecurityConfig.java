@@ -28,22 +28,29 @@ public class SecurityConfig {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-                /*.withUser("user").password(encoder.encode("password")).roles("USER")
-                .and()
-                .withUser("admin").password(encoder.encode("password")).roles("USER", "ADMIN");*/
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(encoder);
     }
-
-
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().requestMatchers(HttpMethod.OPTIONS).permitAll().requestMatchers(HttpMethod.DELETE).permitAll()
-                .requestMatchers("/lk*", "/delete*").hasRole("ADMIN").requestMatchers("/", "/**").access("permitAll").and()
+        http.authorizeRequests()
+                .requestMatchers(HttpMethod.OPTIONS)
+                .permitAll()
+                .requestMatchers(HttpMethod.DELETE)
+                .permitAll()
+                .requestMatchers("/lk*", "/delete*")
+                .hasRole("ADMIN")
+                .requestMatchers("/", "/**")
+                .access("permitAll")
+                .and()
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
-                                .permitAll().defaultSuccessUrl("/lk", true)
-                ).logout(formLogout -> formLogout.logoutSuccessUrl("/"));
+                                .permitAll()
+                                .defaultSuccessUrl("/lk", true)
+                )
+                .logout(formLogout -> formLogout.logoutSuccessUrl("/"));
         http.csrf(AbstractHttpConfigurer::disable);
         http.headers(AbstractHttpConfigurer::disable);
 
