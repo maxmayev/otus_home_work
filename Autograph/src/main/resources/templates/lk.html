@@ -15,6 +15,24 @@
 </head>
 <body>
 <h1 class="header">Добро пожаловать в Автограф</h1>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const collapseElements = document.querySelectorAll('#target-container .collapse');
+        collapseElements.forEach(collapseEl => {
+            new bootstrap.Collapse(collapseEl, { toggle: false, parent: '#target-container' });
+        })
+        document.addEventListener('click', (e) => {
+            if (!e.target.dataset.target) {
+                return;
+            }
+            const collapseElement = document.querySelector(e.target.dataset.target);
+            const collapse = bootstrap.Collapse.getInstance(collapseElement);
+            collapse.toggle();
+        });
+
+    });
+</script>
 <div align="center">
     <table>
     <tr>
@@ -56,8 +74,11 @@
                 <tr>
                     <td>
                         <p>
-                            <button  class="btn" type="button" data-toggle="collapse"
-                                     data-target="#collapseExample1" aria-expanded="true"
+                            <button  class="btn"
+                                     type="button"
+                                     data-toggle="collapse"
+                                     data-target="#collapseExample1"
+                                     aria-expanded="true"
                                      aria-controls="collapseExample2">
                                 <img src="/images/hart.jpg" alt="Редактировать" style="vertical-align: middle;width: 100px; height: 100px">
                             </button>
@@ -96,7 +117,7 @@
         </div>
     </div>
 
-    <div  class="row">
+    <div  class="row" id="target-container">
         <div class="col-2"></div>
         <div class="col">
             <div class="collapse" id="collapseExample">
