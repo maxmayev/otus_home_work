@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 @Controller
 @RequestMapping("/register")
@@ -36,6 +39,17 @@ public class RegistrationController {
 
     @PostMapping
     public String processRegistration(@ModelAttribute("register") RegistrationForm form, BindingResult result, Model model) {
+
+        Pattern pattern = Pattern.compile("^\\w\\d{3}\\w{2}\\d{2,3}$", Pattern.UNICODE_CHARACTER_CLASS);
+        Matcher matcher = pattern.matcher(form.getUsername());
+        if (!matcher.find() || !form.getPassword().equals(form.getConfirm())) {
+            model.addAttribute("error", true);
+            return "registration";
+        }
+        if (userRepository.findByUsername(form.getUsername()) != null) {
+            model.addAttribute("error", true);
+            return "registration";
+        }
         userRepository.save(form.toUser(encoder));
         return "redirect:/login";
     }
