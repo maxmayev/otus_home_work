@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testDb
+    username: pg
+    password: pg
+
+  flyway:
+    enabled: true
+    locations: classpath:db.migration
+    clean-disabled: false
+
+
+
+
+
+

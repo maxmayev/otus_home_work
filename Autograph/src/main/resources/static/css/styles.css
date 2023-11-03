@@ -1,0 +1,41 @@
+img.image {
+    width: 20%;
+    height: 20%;
+    border: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+h1.header {
+    text-align: center;
+}
+
+div.btn-home{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+
+div.login{
+    width: 30%;
+    text-align: center;
+    margin: 0 auto;
+}
+table {
+    border-spacing: 0 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+th {
+    padding: 10px 20px;
+    border-right: 2px solid;
+    font-size: 0.9em;
+}
+th:first-child {
+    text-align: left;
+}
+th:last-child {
+    border-right: none;
+}
+

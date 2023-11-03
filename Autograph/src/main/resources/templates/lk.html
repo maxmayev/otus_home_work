@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Автограф</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.css}" />
+    <link rel="stylesheet" th:href="@{css/styles.css}" />
+    <link rel="stylesheet" href="/daterangepicker/daterangepicker.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="daterangepicker/moment.min.js"></script>
+    <script src="daterangepicker/daterangepicker.js"></script>
+
+</head>
+<body>
+<h1 class="header">Добро пожаловать в Автограф</h1>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const collapseElements = document.querySelectorAll('#target-container .collapse');
+        collapseElements.forEach(collapseEl => {
+            new bootstrap.Collapse(collapseEl, { toggle: false, parent: '#target-container' });
+        })
+        document.addEventListener('click', (e) => {
+            if (!e.target.dataset.target) {
+                return;
+            }
+            const collapseElement = document.querySelector(e.target.dataset.target);
+            const collapse = bootstrap.Collapse.getInstance(collapseElement);
+            collapse.toggle();
+        });
+
+    });
+</script>
+<div align="center">
+    <table>
+    <tr>
+        <td>
+            <h1 class="header"><p th:text="${user.username}">error</p></h1>
+        </td>
+        <td>
+            <form method="POST" th:action="@{/logout}">
+                <button class="btn btn-outline-dark" type="submit">Logout</button>
+            </form>
+        </td>
+    </tr>
+    </table>
+    <br/>
+</div>
+<div class="container" align="center">
+    <div class="row">
+        <div class="col" >
+            <table>
+                <tr>
+                    <th>
+                        <p align="center">Like</p>
+                    </th>
+                    <th>
+                        <p align="center"> Dizlike</p>
+                    </th>
+                    <th>
+                        <p align="center">Message</p>
+                    </th>
+                    <th>
+                        <p align="center"> Send</p>
+                    </th>
+                </tr>
+                <tr>
+                    <td th:text="${#lists.size(goodMessages)}" align="center">[GoodMessage Size]</td>
+                    <td th:text="${#lists.size(badMessages)}" align="center">[badMessage Size]</td>
+                    <td th:text="${#lists.size(messages)}" align="center">[Message Size]</td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <button  class="btn"
+                                     type="button"
+                                     data-toggle="collapse"
+                                     data-target="#collapseExample1"
+                                     aria-expanded="true"
+                                     aria-controls="collapseExample2">
+                                <img src="/images/hart.jpg" alt="Редактировать" style="vertical-align: middle;width: 100px; height: 100px">
+                            </button>
+                        </p>
+                    </td>
+
+                    <td>
+                        <p>
+                            <button  class="btn" type="button" data-toggle="collapse"
+                                     data-target="#collapseExample2" aria-expanded="true"
+                                     aria-controls="collapseExample3">
+                                <img src="/images/shit.jpg" alt="Редактировать" style="vertical-align: middle;width: 100px; height: 100px">
+                            </button>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <button  class="btn" type="button" data-toggle="collapse"
+                                     data-target="#collapseExample3" aria-expanded="true"
+                                     aria-controls="collapseExample4">
+                                <img src="/images/chat.png" alt="Редактировать" style="vertical-align: middle;width: 100px; height: 100px">
+                            </button>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <button  class="btn" type="button" data-toggle="collapse"
+                                     data-target="#collapseExample" aria-expanded="true"
+                                     aria-controls="collapseExample">
+                                <img src="/images/send.jpg" alt="Редактировать" style="vertical-align: middle;width: 100px; height: 100px">
+                            </button>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div  class="row" id="target-container">
+        <div class="col-2"></div>
+        <div class="col">
+            <div class="collapse" id="collapseExample">
+                <form method="post" th:action="@{/lk/sendmessage}" th:object="${message}">
+                    <div class="form-group">
+                        <label for="inputName">Enter your name</label>
+                        <input name="name" type="text" class="form-control" id="inputName" aria-describedby="NameHelp"
+                               placeholder="Введите ваше имя">
+                        <span class="validationErrors"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAutoNumber">Enter auto number</label>
+                        <input name="destination" type="text" class="form-control" id="inputAutoNumber" aria-describedby="AutoNumberHelp"
+                               placeholder="Введите номер автомобиля">
+                        <span class="validationErrors"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputMessText">Enter message</label>
+                        <input name="messText" type="text" class="form-control" id="inputMessText" aria-describedby="MessHelp"
+                               placeholder="Введите сообщение">
+                        <span class="validationErrors"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Good">Good</label>
+                        <input name="goodOrBad" id="Good" type="radio" th:value="@{0}" />
+                        <label for="Bad">Bad</label>
+                        <input name="goodOrBad" id="Bad" type="radio" th:value="@{1}" />
+                    </div>
+                    <input type="text" name="autoNumber" th:value="${user.username}" hidden="true"/>
+                    <button type="submit" class="btn btn-primary" value="Submit message">Отправить</button>
+                </form>
+            </div>
+
+            <div class="collapse" id="collapseExample1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Гос.Номер</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Сообщение</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="message:${goodMessages}">
+                        <td><p th:text="${message.autoNumber}">error</p></td>
+                        <td><p th:text="${message.name}">error</p></td>
+                        <td><p th:text="${message.messText}">error</p></td>
+                        <td>
+                            <div class="container">
+                                <div class="row justify-content-md-center">
+                                    <div class="col col-md-2">
+                                        <form method="post"  th:action="@{/lk/delete}" th:object="${id}"><button name="id" th:value="${message.id}" type="submit"><img src="delete.png" alt="Удалить" style="vertical-align: middle;width: 20px"></button></form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="collapse" id="collapseExample2">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Гос.Номер</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Сообщение</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="message: ${badMessages}">
+                        <td><p th:text="${message.autoNumber}">error</p></td>
+                        <td><p th:text="${message.name}">error</p></td>
+                        <td><p th:text="${message.messText}">error</p></td>
+                        <td>
+                            <div class="container">
+                                <div class="row justify-content-md-center">
+                                    <div class="col col-md-2">
+                                        <form method="post"  th:action="@{/lk/delete}" th:object="${id}"><button name="id" th:value="${message.id}" type="submit"><img src="delete.png" alt="Удалить" style="vertical-align: middle;width: 20px"></button></form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="collapse" id="collapseExample3">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Гос.Номер</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Сообщение</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="message: ${messages}">
+                        <td><p th:text="${message.autoNumber}">error</p></td>
+                        <td><p th:text="${message.name}">error</p></td>
+                        <td><p th:text="${message.messText}">error</p></td>
+                        <td>
+                            <div class="container">
+                                <div class="row justify-content-md-center">
+                                    <div class="col col-md-2">
+                                        <form method="post"  th:action="@{/lk/delete}" th:object="${id}"><button name="id" th:value="${message.id}" type="submit"><img src="delete.png" alt="Удалить" style="vertical-align: middle;width: 20px"></button></form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+</body>
+</html>
