@@ -1,4 +1,4 @@
-package main.java;
+package org.example;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
@@ -17,5 +17,3 @@ public class Main {
         worker2.start();
     }
 }
-
-

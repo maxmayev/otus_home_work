@@ -1,4 +1,4 @@
-package main.java;
+package org.example;
 
 import java.util.concurrent.locks.Lock;
 
